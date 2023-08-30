@@ -1,0 +1,19 @@
+.element__button {
+  width: 25px;
+  height: 19px;
+  background-color: white;
+  border: 0;
+  background-image: url(../../../images/Group.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  align-self: center;
+  margin: 5px 5px 1px 0;
+  position: relative;
+  
+}
+
+.element__button:hover {
+  transition: opacity 0.3s; /* Добавляем плавный переход для изменения прозрачности */
+  opacity: 0.5; /* Изменяем прозрачность при наведении */
+}

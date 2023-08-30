@@ -1,0 +1,5 @@
+.element__button_theme_dark {
+  background-image: url(../../../../images/Union.svg);
+  fill: black;
+  opacity: 1; /* Изменяем прозрачность при наведении */
+}

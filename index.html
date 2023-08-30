@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Место</title>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
+  <body class="page">
+    <div>
+      <header class="header">
+        <img
+          src="./images/logo.svg"
+          alt="Изображение логотипа Место"
+          class="header__logo"
+        />
+      </header>
+
+      <main class="content">
+        <section class="profile">
+          <img
+            src="./images/avatar.jpg"
+            alt="изображение Аватара"
+            class="profile__avatar"
+          />
+          <div class="profile__info">
+            <div class="profile__heading">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+
+              <button type="button" class="profile__edit-button" ></button>
+            </div>
+
+            <p class="profile__speciality">Исследователь океана</p>
+          </div>
+          <button type="button" class="profile__add-button" ></button>
+        </section>
+
+        <section class="elements" aria-label="Галлерея">
+         
+        </section>
+      </main>
+
+      <footer class="footer">
+        <p class="footer__copyright">© 2023 Mesto Russia</p>
+      </footer>
+    </div>
+
+    
+    <div class="popup profile-popup" >
+      <div class="popup__content">
+        <button type="button" class="popup__close"></button>
+        <h2 class="popup__heading">Редактировать профиль</h2>
+        <form name="name" class="popup__form">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Жак-Ив Кусто"
+            class="popup__field"
+          />
+          <input
+            type="text"
+            id="speciality"
+            name="speciality"
+            placeholder="Исследователь океана"
+            class="popup__field popup__field_theme_speciality"
+          />
+          <button type="submit" class="popup__save">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_new-place">
+      <div class="popup__content">
+        <button type="button" class="popup__close"></button>
+        <h2 class="popup__heading">Новое место</h2>
+        <form name="place" class="popup__form">
+          <input
+            type="text"
+            id="new-place-name"
+            name="new-place-name"
+            placeholder="Название"
+            class="popup__field"
+          />
+          <input
+          type="text"
+          id="new-place-url"
+          name="new-place-url"
+          placeholder="Ссылка на картинку"
+          class="popup__field popup__field_theme_speciality"
+        />
+          
+          <button type="submit" class="popup__save popup__save_new-place">Добавить</button>
+        </form>
+      </div>
+    </div>
+
+    <template id="place-template">
+      <article class="element">
+        <img
+          src="./images/kirill-pershin-1088404-unsplash.jpg"
+          alt="Карачаевск"
+          class="element__image"
+        />
+        <div class="element__container">
+          <h2 class="element__heading">Карачаевск</h2>
+          <button type="button" class="element__button"></button>
+        </div>
+        <button type="button" class="element__trash-button"></button>
+      </article>
+    </template>
+
+    <div class="popup popup_type_image">
+      <div class="popup__content popup__content_type_image">
+        <button
+          aria-label="Закрыть"
+          type="button"
+          class="popup__close"
+        ></button>
+        <img src="#" alt="Картинка" class="popup__image" />
+        <p class="popup__subtitle"></p>
+      </div>
+    </div>
+
+  </body>
+
+
+</html>

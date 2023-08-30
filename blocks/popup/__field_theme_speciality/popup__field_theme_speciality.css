@@ -1,0 +1,22 @@
+.popup__field_theme_speciality {
+  width: 358px;
+  height: 14px;
+  flex-shrink: 0;
+  margin: 0 auto 0 auto;
+  border: none;
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 13px;
+  padding-top: 0;
+}
+
+@media screen and (max-width: 590px) {
+  .popup__field_theme_speciality {
+    width: 238px;
+    height: 14px;
+  }
+}

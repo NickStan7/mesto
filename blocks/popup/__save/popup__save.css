@@ -1,0 +1,33 @@
+.popup__save {
+  width: 358px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  background: #000;
+  margin: 48px auto 0 auto;
+  color: white;
+  text-align: center;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.popup__save:hover {
+  transition: opacity 0.3s; /* Добавляем плавный переход для изменения прозрачности */
+  opacity: 0.8; /* Изменяем прозрачность при наведении */
+}
+
+@media screen and (max-width: 590px) {
+  .popup__save {
+    font-size: 18px;
+    width: 238px;
+    margin: 45px auto 25px auto;
+    font-size: 14px;
+    height: 46px;
+  }
+}

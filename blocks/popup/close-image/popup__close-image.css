@@ -1,0 +1,29 @@
+.popup__close-image {
+position: relative; /* Относительное позиционирование */
+  margin-top: -8px; /* Отступ сверху на -8 пикселей */
+  margin-right: 8px; /* Отступ справа на 8 пикселей */
+  width: 32px;
+  height: 32px;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+  background-image: url(../../../images/Close\ Icon2.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.popup__close-image:hover {
+  transition: opacity 0.3s; /* Добавляем плавный переход для изменения прозрачности */
+  opacity: 0.6; /* Изменяем прозрачность при наведении */
+}
+
+
+@media screen and (max-width: 590px) {
+  .popup__close-image {
+    background-image: url(../../../images/Close\ Icon3.svg);
+    width: 20px;
+    height: 20px;
+    top: -36px;
+    left: calc(282px - 20px);
+  }
+}
