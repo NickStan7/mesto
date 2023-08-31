@@ -3,7 +3,7 @@
   height: 50px;
   background-color: #000;
   border: 2px solid #fff;
-  background-image: url(../../../images/Add\ Button.svg);
+  background-image: url(../../../images/AddButton.svg);
   background-position: center;
   background-repeat: no-repeat;
   cursor: pointer;
@@ -21,6 +21,6 @@
   .profile__add-button {
     margin: 36px auto;
     width: 282px;
-    background-image: url(../../../images/Add\ Buttonbig.svg);
+    background-image: url(../../../images/AddButtonbig.svg);
   }
 }

@@ -86,7 +86,7 @@ formName.addEventListener('submit', function (evt) {
 
 import arkhyzImage from './images/arkhyz.jpg';
 
-import chelyabinskImage from './images/arkhyz.jpg';
+import chelyabinskImage from './images/arkhyz.jpg'; 
 
 import ivanovoImage from './images/arkhyz.jpg';
 
