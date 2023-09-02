@@ -6,16 +6,17 @@ const formName = document.forms.name;
 const profileName = document.querySelector(".profile__name");
 const profileSpeciality = document.querySelector(".profile__speciality");
 
-const nameInputPlace = document.getElementById("new-place-name");
-const urlInputPlace = document.getElementById("new-place-url");
 
 //111111
 
 // Получаем кнопку "Редактировать профиль"
-const openButton = document.querySelector(".profile__edit-button");
+const editButton = document.querySelector('.profile__edit-button');
+
+const popup = document.querySelector(".popup");
 
 // Получаем попап
 const profilePopup = document.querySelector(".profile-popup");
+
 
 // Получаем кнопку закрытия попапа
 const closeButton = document.querySelector(".popup__close");
@@ -24,19 +25,25 @@ const closeButton = document.querySelector(".popup__close");
 const nameInput = formName.elements.username;
 const jobInput = formName.elements.speciality;
 
+ // Получите значение из атрибута textContent элементов profile__name и profile__speciality
+ const nameValue = profileName.textContent;
+ const jobValue = profileSpeciality.textContent;
+
+ nameInput.focus();
+ // Вставьте новые значения в инпуты
+ nameInput.value = nameValue;
+ jobInput.value = jobValue;
+
 // Функция для открытия попапа
-function openPopup() {
-  // Получите значение из атрибута textContent элементов profile__name и profile__speciality
-  const nameValue = profileName.textContent;
-  const jobValue = profileSpeciality.textContent;
-
-  nameInput.focus();
-  // Вставьте новые значения в инпуты
-  nameInput.value = nameValue;
-  jobInput.value = jobValue;
-
-  profilePopup.classList.add("popup_opened");
+function openPopup(popup) {
+ 
+  popup.classList.add("popup_opened");
 }
+
+function EditProfileButtonClick() {
+  openPopup(profilePopup);
+}
+
 
 // Функция для закрытия попапа
 function closePopup() {
@@ -44,7 +51,7 @@ function closePopup() {
 }
 
 // Слушаем клик на кнопке "Редактировать профиль" и открываем попап
-openButton.addEventListener("click", openPopup);
+editButton.addEventListener('click', EditProfileButtonClick);
 
 // Слушаем клик на кнопке закрытия попапа и закрываем его
 closeButton.addEventListener("click", closePopup);
@@ -163,33 +170,31 @@ initialCards.forEach((card) => {
 //33333333333
 
 // Получаем кнопку "добавить"
-const addButton = document.querySelector(".profile__add-button");
+const addButton = document.querySelector('.profile__add-button');
 
 // Получаем попап
-const popupNew = document.querySelector(".popup_new-place");
+const newPlacePopup = document.querySelector(".popup_new-place");
 
 // Получаем кнопку закрытия попапа
-const closeNewButton = popupNew.querySelector(".popup__close");
+const closeNewButton = newPlacePopup.querySelector(".popup__close");
 
 // Получаем инпуты
 const namePlace = document.querySelector("#new-place-name");
 const imgUrl = document.querySelector("#new-place-url");
-const nameValue = namePlace.value; // Получаем значение из поля ввода имени
-const urlValue = imgUrl.value; // Получаем значение из поля ввода UR
 
-// Функция для открытия попапа
-function openNewPopup() {
-  popupNew.classList.add("popup_new-place_opened");
-  namePlace.focus();
+
+// Функция-обработчик клика для кнопки "Добавить место"
+function handleAddPlaceButtonClick() {
+  openPopup(newPlacePopup);
 }
 
 // Функция для закрытия попапа
 function closeNewPopup() {
-  popupNew.classList.remove("popup_new-place_opened");
+  newPlacePopup.classList.remove("popup_new-place_opened");
 }
 
 // Слушаем клик на кнопке "Редактировать профиль" и открываем попап
-addButton.addEventListener("click", openNewPopup);
+addButton.addEventListener('click', handleAddPlaceButtonClick);
 
 // Слушаем клик на кнопке закрытия попапа и закрываем его
 closeNewButton.addEventListener("click", closeNewPopup);
@@ -208,10 +213,10 @@ function addItem() {
   const newCard = createCard(nameValue, urlValue); // Создаем новую карточку
   elementsContainer.insertBefore(newCard, elementsContainer.firstChild);
 
-  closeNewPopup(); // Закрываем всплывающее окно
 
   namePlace.value = "";
   imgUrl.value = "";
+  closeNewPopup(); // Закрываем всплывающее окно
 }
 
 const formPlace = document.forms.place;
@@ -271,6 +276,7 @@ function openImagePopup(event) {
   popupSubtitle.textContent = imageAlt;
 
   popupImage.classList.add("popup_type_image_opened");
+  
 }
 
 // Функция для закрытия попапа
@@ -283,9 +289,10 @@ closeImage.addEventListener("click", closeImagePopup);
 
 //popupNew.addEventListener("keydown", function(evt) {
 // if (evt.key === "Escape") {
-//   popupNew.classList.remove("popup_opened"); 
+//   popupNew.classList.remove("popup_opened"); closePopup()
 // }
 // });
+
 
 
 const validitySettings = {

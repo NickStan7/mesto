@@ -2,7 +2,7 @@
   width: 358px;
   height: 14px;
   flex-shrink: 0;
-  margin: 54px auto 30px auto;
+  margin: 54px auto 0 auto;
   border: none;
   color: #000;
   font-size: 14px;
@@ -12,12 +12,12 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   padding-bottom: 13px;
   padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 @media screen and (max-width: 590px) {
   .popup__field {
     width: 238px;
-    height: 14px;
-    margin: 75px auto 30px auto;
   }
 }

@@ -4,7 +4,7 @@
   flex-shrink: 0;
   border-radius: 2px;
   background: #000;
-  margin: 48px auto 0 auto;
+  margin: 0 auto 0 auto;
   color: white;
   text-align: center;
   font-family: Inter;
@@ -22,11 +22,17 @@
   opacity: 0.8; /* Изменяем прозрачность при наведении */
 }
 
+.popup__save:disabled {
+  background: white;
+  border-radius: 2px;
+  border: 1px solid #c4c4c4;
+  color: #c4c4c4;
+}
+
 @media screen and (max-width: 590px) {
   .popup__save {
-    font-size: 18px;
     width: 238px;
-    margin: 45px auto 25px auto;
+    margin: 0 auto 25px auto;
     font-size: 14px;
     height: 46px;
   }
