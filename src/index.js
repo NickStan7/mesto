@@ -6,7 +6,6 @@ const formName = document.forms.name;
 const profileName = document.querySelector(".profile__name");
 const profileSpeciality = document.querySelector(".profile__speciality");
 
-
 //111111 Открытие и закрытие модального окна
 
 // Получаем кнопку "Редактировать профиль"
@@ -20,39 +19,37 @@ const profilePopup = document.querySelector(".profile-popup");
 // Получаем кнопку закрытия попапа
 const popupCloseButtons = document.querySelectorAll(".popup__close");
 
-  // Получаем инпуты 
+// Получаем инпуты
 const nameInput = formName.elements.username;
 const jobInput = formName.elements.speciality;
 
 function insertInput() {
- 
- // Получите значение из атрибута textContent элементов profile__name и profile__speciality
- const nameValue = profileName.textContent;
- const jobValue = profileSpeciality.textContent;
- nameInput.focus();
+  // Получите значение из атрибута textContent элементов profile__name и profile__speciality
+  const nameValue = profileName.textContent;
+  const jobValue = profileSpeciality.textContent;
+  nameInput.focus();
 
- // Вставьте новые значения в инпуты
- nameInput.value = nameValue;
- jobInput.value = jobValue;
+  // Вставьте новые значения в инпуты
+  nameInput.value = nameValue;
+  jobInput.value = jobValue;
 }
-
 
 function EditProfileButtonClick() {
   openPopup(profilePopup);
-  insertInput()
+  insertInput();
 }
 
-import {openPopup,closePopup } from "./components/modal"
+import { openPopup, closePopup } from "./components/modal";
 
-popupCloseButtons.forEach(button => button.addEventListener('click', (e)=> {
-  const popup = e.target.closest('.popup')
-  closePopup(popup)
-}))
-
+popupCloseButtons.forEach((button) =>
+  button.addEventListener("click", (e) => {
+    const popup = e.target.closest(".popup");
+    closePopup(popup);
+  })
+);
 
 // Слушаем клик на кнопке "Редактировать профиль" и открываем попап
 openButton.addEventListener("click", EditProfileButtonClick);
-
 
 //111111(222222) Редактирование имени и информации о себе
 
@@ -82,7 +79,7 @@ formName.addEventListener("submit", function (evt) {
 
 //22222222222  Вставка Шесть карточек «из коробки»
 
-import {initialCards} from "./components/card.js";
+import { initialCards } from "./components/card.js";
 
 const elementsContainer = document.querySelector(".elements");
 
@@ -110,8 +107,8 @@ function createCard(name, link) {
   return cardElement; // Возвращаем готовую карточку
 }
 
-import {toggleLike} from "./components/card"
-import {removeCard} from "./components/card"
+import { toggleLike } from "./components/card";
+import { removeCard } from "./components/card";
 
 // Добавление карточек из массива initialCards
 initialCards.forEach((card) => {
@@ -122,7 +119,7 @@ initialCards.forEach((card) => {
 //33333333333 Форма добавления карточки
 
 // Получаем кнопку "добавить"
-const addButton = document.querySelector('.profile__add-button');
+const addButton = document.querySelector(".profile__add-button");
 
 // Получаем попап
 const newPlacePopup = document.querySelector(".popup_new-place");
@@ -137,7 +134,7 @@ function handleAddPlaceButtonClick() {
 }
 
 // Слушаем клик на кнопке "Редактировать профиль" и открываем попап
-addButton.addEventListener('click', handleAddPlaceButtonClick);
+addButton.addEventListener("click", handleAddPlaceButtonClick);
 
 //4444444444444  Добавление карточки
 
@@ -160,7 +157,6 @@ const formPlace = document.forms.place;
 
 formPlace.addEventListener("submit", addItem);
 
-
 //777777777777
 
 // Получаем попап
@@ -170,11 +166,9 @@ const popupImage = document.querySelector(".popup_type_image");
 const popupSubtitle = document.querySelector(".popup__subtitle");
 
 // Находим элемент <img> внутри попапа
-const popupImageImg = popupImage.querySelector(".popup__image"); 
-
+const popupImageImg = popupImage.querySelector(".popup__image");
 
 function openImagePopup(event) {
-
   const clickedImage = event.target;
   const imageUrl = clickedImage.src;
   const imageAlt = clickedImage.alt;
@@ -183,17 +177,15 @@ function openImagePopup(event) {
   popupImageImg.alt = `${imageAlt} вставлять`;
   popupSubtitle.textContent = imageAlt;
   openPopup(popupImage);
-  
 }
 
-import enableValidation from "./components/validation.js"
+import enableValidation from "./components/validation.js";
 
 const validationSettings = {
   inputSelector: ".popup__field",
   buttonSelector: ".popup__save",
   formSelector: ".popup__form",
   ivalidPopupField: "popup__field_invalid",
-
-}
+};
 
 enableValidation(validationSettings);

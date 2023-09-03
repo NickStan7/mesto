@@ -39,14 +39,12 @@ export const initialCards = [
 
 // 5555555555  Обработчик для кнопки "Лайк"
 export function toggleLike(event) {
-    const likeButton = event.target;
-    likeButton.classList.toggle("element__button_theme_dark");
-  }
+  const likeButton = event.target;
+  likeButton.classList.toggle("element__button_theme_dark");
+}
 
-  //6666666666 Обработчик для кнопки "Удалить"
-  export function removeCard(event) {
-    const card = event.target.closest(".element");
-    card.remove();
-  }
-
-
+//6666666666 Обработчик для кнопки "Удалить"
+export function removeCard(event) {
+  const card = event.target.closest(".element");
+  card.remove();
+}
