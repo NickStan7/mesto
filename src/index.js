@@ -1,4 +1,8 @@
 import "./pages/index.css";
+import { openPopup, closePopup } from "./components/modal";
+import { initialCards } from "./components/utils";
+import { createCard } from "./components/card";
+import enableValidation from "./components/validation.js";
 
 // Находим форму в DOM
 const formName = document.forms.name;
@@ -39,8 +43,6 @@ function EditProfileButtonClick() {
   insertInput();
 }
 
-import { openPopup, closePopup } from "./components/modal";
-
 popupCloseButtons.forEach((button) =>
   button.addEventListener("click", (e) => {
     const popup = e.target.closest(".popup");
@@ -79,36 +81,7 @@ formName.addEventListener("submit", function (evt) {
 
 //22222222222  Вставка Шесть карточек «из коробки»
 
-import { initialCards } from "./components/card.js";
-
 const elementsContainer = document.querySelector(".elements");
-
-// Функция для создания карточки
-function createCard(name, link) {
-  const cardTemplate = document.querySelector("#place-template").content;
-  const cardElement = cardTemplate.cloneNode(true);
-
-  cardElement.querySelector(".element__heading").textContent = name;
-  const imageElement = cardElement.querySelector(".element__image");
-  imageElement.src = link;
-  imageElement.alt = name;
-
-  const likeButton = cardElement.querySelector(".element__button");
-  likeButton.addEventListener("click", toggleLike);
-
-  const trashButton = cardElement.querySelector(".element__trash-button");
-  trashButton.addEventListener("click", removeCard);
-
-  const clickImages = cardElement.querySelectorAll(".element__image");
-  clickImages.forEach((clickImage) => {
-    clickImage.addEventListener("click", openImagePopup); // Добавляем слушатель для каждого изображения
-  });
-
-  return cardElement; // Возвращаем готовую карточку
-}
-
-import { toggleLike } from "./components/card";
-import { removeCard } from "./components/card";
 
 // Добавление карточек из массива initialCards
 initialCards.forEach((card) => {
@@ -168,7 +141,7 @@ const popupSubtitle = document.querySelector(".popup__subtitle");
 // Находим элемент <img> внутри попапа
 const popupImageImg = popupImage.querySelector(".popup__image");
 
-function openImagePopup(event) {
+export function openImagePopup(event) {
   const clickedImage = event.target;
   const imageUrl = clickedImage.src;
   const imageAlt = clickedImage.alt;
@@ -178,8 +151,6 @@ function openImagePopup(event) {
   popupSubtitle.textContent = imageAlt;
   openPopup(popupImage);
 }
-
-import enableValidation from "./components/validation.js";
 
 const validationSettings = {
   inputSelector: ".popup__field",

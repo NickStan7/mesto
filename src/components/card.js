@@ -1,41 +1,25 @@
-import arkhyzImage from "./images/arkhyz.jpg";
+import { openImagePopup } from "../index";
 
-import chelyabinskImage from "./images/chelyabinsk-oblast.jpg";
+// Функция для создания карточки
+export function createCard(name, link) {
+  const cardTemplate = document.querySelector("#place-template").content;
+  const cardElement = cardTemplate.cloneNode(true);
 
-import ivanovoImage from "./images/ivanovo.jpg";
+  cardElement.querySelector(".element__heading").textContent = name;
+  const imageElement = cardElement.querySelector(".element__image");
+  imageElement.src = link;
+  imageElement.alt = name;
 
-import kamchatkaImage from "./images/kamchatka.jpg";
+  const likeButton = cardElement.querySelector(".element__button");
+  likeButton.addEventListener("click", toggleLike);
 
-import holmogorImage from "./images/kholmogorsky-rayon.jpg";
+  const trashButton = cardElement.querySelector(".element__trash-button");
+  trashButton.addEventListener("click", removeCard);
+  imageElement.addEventListener("click", openImagePopup);
+  
 
-import baikalImage from "./images/baikal.jpg";
-
-export const initialCards = [
-  {
-    name: "Архыз",
-    link: arkhyzImage,
-  },
-  {
-    name: "Челябинск",
-    link: chelyabinskImage,
-  },
-  {
-    name: "Иваново",
-    link: ivanovoImage,
-  },
-  {
-    name: "Камчатка",
-    link: kamchatkaImage,
-  },
-  {
-    name: "Холмогорский район",
-    link: holmogorImage,
-  },
-  {
-    name: "Байкал",
-    link: baikalImage,
-  },
-];
+  return cardElement; // Возвращаем готовую карточку
+}
 
 // 5555555555  Обработчик для кнопки "Лайк"
 export function toggleLike(event) {
@@ -48,3 +32,4 @@ export function removeCard(event) {
   const card = event.target.closest(".element");
   card.remove();
 }
+

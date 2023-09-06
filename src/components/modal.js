@@ -1,12 +1,14 @@
 // Функция для закрытия попапа на Escape
 function closePopupEscape(e) {
+
+  if (e.key === "Escape") {
   const popup = document.querySelector(".popup_opened");
-  if (e.key === "Escape") closePopup(popup);
+   closePopup(popup)}
 }
 
 function closePopupOverlay(e) {
   const popup = document.querySelector(".popup_opened");
-  if (e.target === popup) closePopup(popup);
+  if (e.target === popup) {closePopup(popup)};
 }
 
 // Функция для открытия попапа

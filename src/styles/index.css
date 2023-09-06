@@ -30,17 +30,12 @@
 @import url(../blocks/popup/__field_theme_speciality/popup__field_theme_speciality.css);
 @import url(../blocks/popup/__save/popup__save.css);
 @import url(../blocks/popup/_new-place/popup_new-place.css);
-@import url(../blocks/popup/_new-place/_opened/popup_new-place_opened.css);
 @import url(../blocks/popup/__save/_place/popup__save_place.css);
 @import url(../blocks/element/__button/_theme_dark/element__button_theme_dark.css);
 @import url(../blocks/popup/__field/_invalid/popup__field_invalid.css);
-
 @import url(../blocks/element/__trash-button/element__trash-button.css);
 @import url(../blocks/popup/_type_image/popup_type_image.css);
 @import url(../blocks/popup/__subtitle/popup__subtitle.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__content/_type_image/popup__content_type_image.css);
-@import url(../blocks/popup/_type_image/popup_type_image_opened/popup_type_image_opened.css);
 @import url(../blocks/popup/close-image/popup__close-image.css);
-
-
