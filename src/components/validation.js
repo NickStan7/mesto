@@ -53,3 +53,11 @@ export default function enableValidation(settings) {
     setEventListeners(form, settings);
   });
 }
+
+//Функция блокировки создания пустой карточки
+export function blockButton() {
+  const buttonSelector = document.querySelector(".popup__save_new-place");
+  if (buttonSelector) {
+    buttonSelector.disabled = true;
+  }
+}

@@ -15,9 +15,6 @@ const profileSpeciality = document.querySelector(".profile__speciality");
 // Получаем кнопку "Редактировать профиль"
 const openButton = document.querySelector(".profile__edit-button");
 
-// Получаем попап
-const popup = document.querySelector(".popup");
-
 const profilePopup = document.querySelector(".profile-popup");
 
 // Получаем кнопку закрытия попапа

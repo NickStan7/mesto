@@ -16,7 +16,6 @@ export function createCard(name, link) {
   const trashButton = cardElement.querySelector(".element__trash-button");
   trashButton.addEventListener("click", removeCard);
   imageElement.addEventListener("click", openImagePopup);
-  
 
   return cardElement; // Возвращаем готовую карточку
 }
@@ -32,4 +31,3 @@ export function removeCard(event) {
   const card = event.target.closest(".element");
   card.remove();
 }
-
