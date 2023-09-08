@@ -1,7 +1,10 @@
 import { openImagePopup } from "../index";
+import { deleteItem } from "./api";
+
+export const initialCards = [];
 
 // Функция для создания карточки
-export function createCard(name, link) {
+export function createCard(name, link,) {
   const cardTemplate = document.querySelector("#place-template").content;
   const cardElement = cardTemplate.cloneNode(true);
 
@@ -17,6 +20,7 @@ export function createCard(name, link) {
   trashButton.addEventListener("click", removeCard);
   imageElement.addEventListener("click", openImagePopup);
 
+
   return cardElement; // Возвращаем готовую карточку
 }
 
@@ -30,4 +34,6 @@ export function toggleLike(event) {
 export function removeCard(event) {
   const card = event.target.closest(".element");
   card.remove();
+ 
 }
+

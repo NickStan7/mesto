@@ -39,7 +39,6 @@ function insertInput() {
 function EditProfileButtonClick() {
   openPopup(profilePopup);
   insertInput();
-  
 }
 
 popupCloseButtons.forEach((button) =>
@@ -65,7 +64,6 @@ formName.addEventListener("submit", function (evt) {
 
   // вызываем функцию
   handleFormSubmit(evt);
-
 });
 
 //22222222222  Вставка Шесть карточек «из коробки»
@@ -103,40 +101,19 @@ addButton.addEventListener("click", handleAddPlaceButtonClick);
 
 //4444444444444  Добавление карточки
 
-
-function addItem(event) {
+function addItem() {
   event.preventDefault(); // Предотвращаем перезагрузку страницы
-
-  const saveButton = document.querySelector(".popup__save_new-place");
-  saveButton.textContent = "Сохранение...";
 
   const nameValue = namePlace.value; // Получаем значение из поля ввода имени
   const urlValue = imgUrl.value; // Получаем значение из поля ввода URL
 
-    // Сохранение Карточки На Сервере!!!
-  
-  saveItem(nameValue, urlValue)
-  .then(res => {
-    const newCard = createCard(res.name, res.link); // Создаем новую карточку
-    elementsContainer.insertBefore(newCard, elementsContainer.firstChild);
-     closePopup(newPlacePopup); // Закрываем всплывающее окно
+  const newCard = createCard(nameValue, urlValue); // Создаем новую карточку
+  elementsContainer.insertBefore(newCard, elementsContainer.firstChild);
+
+  closePopup(newPlacePopup); // Закрываем всплывающее окно
 
   namePlace.value = "";
   imgUrl.value = "";
-  })
-  .then(() => {
-    console.log('Место успешно обновлено.');
-    
-  })
-  .catch(error => {
-    console.error('Ошибка при обновлении профиля:', error);
-  })
-  .finally(() => {
-    // После получения ответа от сервера, верните исходный текст кнопки
-    saveButton.textContent = "Добавить";
-  });
-  
-
 }
 
 const formPlace = document.forms.place;
@@ -207,12 +184,7 @@ import { initialCards } from "./components/card.js"
 
 import { getInitialCards } from "./components/api.js"
 
-getInitialCards()
-.then(res => {addCards()})
-.catch(error => {
-  console.error('Ошибка при обновлении профиля:', error);
-});
-
+getInitialCards();
 
 
 //5. Редактирование профиля
@@ -243,8 +215,7 @@ function handleFormSubmit(evt) {
 
   const nameValue = nameInput.value; // Получаем новое имя из поля ввода
   const jobValue = jobInput.value; // Получаем новую информацию о себе из поля ввода
-  const saveButton = formName.querySelector(".popup__save");
-  saveButton.textContent = "Сохранение...";
+
   patchUserProfile(nameValue, jobValue)
     .then(() => {
       console.log('Профиль успешно обновлен.');
@@ -255,22 +226,7 @@ function handleFormSubmit(evt) {
     })
     .catch(error => {
       console.error('Ошибка при обновлении профиля:', error);
-    })
-    .finally(() => {
-      // После получения ответа от сервера, верните исходный текст кнопки
-      saveButton.textContent = "Сохранить";
     });
 }
 
-
-
-
-
-
-
 // 6. Добавление новой карточки
-
-import { saveItem } from "./components/api";
-
-import { deleteItem } from "./components/api.js";
-
