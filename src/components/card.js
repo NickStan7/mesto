@@ -1,17 +1,42 @@
 import { openImagePopup } from "../index";
-import { deleteItem } from "./api";
+import { removeUserCard, putLike, deleteLike } from "./api.js"
 
 export const initialCards = [];
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Функция для создания карточки
-export function createCard(name, link,) {
+export function createCard(item) {
   const cardTemplate = document.querySelector("#place-template").content;
   const cardElement = cardTemplate.cloneNode(true);
 
-  cardElement.querySelector(".element__heading").textContent = name;
+  cardElement.querySelector(".element__heading").textContent = item.name;
   const imageElement = cardElement.querySelector(".element__image");
-  imageElement.src = link;
-  imageElement.alt = name;
+  imageElement.src = item.link;
+  imageElement.alt = item.name;
+  
 
   const likeButton = cardElement.querySelector(".element__button");
   likeButton.addEventListener("click", toggleLike);

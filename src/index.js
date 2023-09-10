@@ -4,6 +4,7 @@ import { openPopup, closePopup } from "./components/modal";
 import { createCard } from "./components/card";
 import enableValidation from "./components/validation.js";
 
+let userId
 
 // Находим форму в DOM
 const formName = document.forms.name;
@@ -16,7 +17,7 @@ const profileSpeciality = document.querySelector(".profile__speciality");
 // Получаем кнопку "Редактировать профиль"
 const openButton = document.querySelector(".profile__edit-button");
 
-const profilePopup = document.querySelector(".profile-popup");
+const profilePopup = document.querySelector(".popup_profile");
 
 // Получаем кнопку закрытия попапа
 const popupCloseButtons = document.querySelectorAll(".popup__close");
@@ -75,8 +76,8 @@ const elementsContainer = document.querySelector(".elements");
 // Добавление карточек из массива initialCards
 export function addCards() {
 
-initialCards.forEach((card) => {
-  const newCard = createCard(card.name, card.link); // Создаем карточку
+initialCards.forEach((item) => {
+  const newCard = createCard(item.name, item.link, item.likes); // Создаем карточку
   elementsContainer.appendChild(newCard); // Вставляем карточку в контейнер
 });
 }
@@ -117,12 +118,14 @@ function addItem(event) {
   
   saveItem(nameValue, urlValue)
   .then(res => {
-    const newCard = createCard(res.name, res.link); // Создаем новую карточку
+    const newCard = createCard(res.name, res.link, res._id); // Создаем новую карточку
+    
     elementsContainer.insertBefore(newCard, elementsContainer.firstChild);
      closePopup(newPlacePopup); // Закрываем всплывающее окно
 
   namePlace.value = "";
   imgUrl.value = "";
+  
   })
   .then(() => {
     console.log('Место успешно обновлено.');
@@ -175,10 +178,12 @@ const validationSettings = {
 enableValidation(validationSettings);
 
 
-// 8 спринт
+// 888888888888888888888888888888888888888888 888888888888888888888888888888888888888888 888888888888888888 cпринт
 // 3. Загрузка информации о пользователе с сервера
 
 const profileAvatar = document.querySelector(".profile__avatar");
+
+
 
 function fetchProfile() {
   return fetch('https://mesto.nomoreparties.co/v1/wbf-cohort-12/users/me', {
@@ -191,6 +196,7 @@ function fetchProfile() {
       profileName.textContent = data.name;
       profileSpeciality.textContent = data.about;
       profileAvatar.src = data.avatar;
+      
     })
     .catch(error => {
       console.error('Ошибка при обновлении профиля:', error);
@@ -205,7 +211,7 @@ import { initialCards } from "./components/card.js"
 
 // 4. Загрузка карточек с сервера
 
-import { getInitialCards } from "./components/api.js"
+import { changeAvatar, getInitialCards } from "./components/api.js"
 
 getInitialCards()
 .then(res => {addCards()})
@@ -273,4 +279,59 @@ function handleFormSubmit(evt) {
 import { saveItem } from "./components/api";
 
 import { deleteItem } from "./components/api.js";
+
+
+
+// 10. Обновление аватара пользователя
+
+
+const popupAvatar = document.querySelector(".popup_avatar");
+const editAvatar = document.querySelector(".profile__avatar-container");
+const saveAvatar = document.querySelector(".popup__save_avatar"); 
+const avatarValue = document.querySelector("#avatar-url");
+
+function editAvatarButtonClick() {
+  openPopup(popupAvatar);
+  insertInput();
+}
+
+editAvatar.addEventListener("click", editAvatarButtonClick);
+
+function saveAvatarButtonClick(evt) {
+  saveAvatar.textContent = "Сохранение...";
+  evt.preventDefault();
+  const newAvatarUrl = avatarValue.value; // Получаем новый URL аватара из поля ввода
+  changeAvatar(newAvatarUrl) // Отправляем новый URL на сервер
+    .then(() => {
+      console.log('Аватар успешно обновлен.');
+      profileAvatar.src = newAvatarUrl; // Обновляем аватар на странице
+      const popup = evt.target.closest(".popup");
+      closePopup(popup);
+    })
+    .catch(error => {
+      console.error('Ошибка при обновлении аватара:', error);
+    })
+    .finally(() => {
+      // После получения ответа от сервера, верните исходный текст кнопки
+      saveAvatar.textContent = "Сохранить";
+      avatarValue.value = "";
+    });
+}
+
+saveAvatar.addEventListener("click", saveAvatarButtonClick);
+
+
+
+
+// 7. Отображение количества лайков карточки
+
+Promise.all([fetchProfile(), getInitialCards()])
+  .then(([data, cards]) => {
+    userId = data._id;
+    fetchProfile(data);
+    addCards(cards, userId);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 

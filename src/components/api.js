@@ -28,7 +28,6 @@ export function getInitialCards() {
         )
         
       .then(data => {
-        console.log(data)
         const newData = data.map(card => ({
           name: card.name,
           link: card.link
@@ -56,7 +55,7 @@ export function getInitialCards() {
 }
 
 export function deleteItem(id) {
-    return fetch(`${config.baseUrl}/cards/${id}`, {
+    return fetch(`${config.baseUrl}/users/me/avatar`, {
         headers: config.headers,
         'Content-Type': 'application/json',
         method: "DELETE",
@@ -65,3 +64,38 @@ export function deleteItem(id) {
     .then(checkResponse);
 }
 
+
+
+// 10. Обновление аватара пользователя
+
+export function changeAvatar(avatar) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+      headers: config.headers,
+      'Content-Type': 'application/json',
+      method: "PATCH",
+      body: JSON.stringify({
+          avatar: avatar
+          
+      })
+  })
+  .then(checkResponse)
+  
+}
+
+
+//7
+
+//добавление инфо о лайке на сервер
+export function addLike(id) {
+  return request(`${config.baseUrl}/cards/likes/${id}`, {
+    method: 'PUT',
+    headers: config.headers,
+  })
+}
+
+export function removeLike(id) {
+  return request(`${config.baseUrl}/cards/likes/${id}`, {
+    method: 'DELETE',
+    headers: config.headers,
+  })
+}
