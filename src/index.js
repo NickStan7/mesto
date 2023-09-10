@@ -77,7 +77,7 @@ const elementsContainer = document.querySelector(".elements");
 export function addCards() {
 
 initialCards.forEach((item) => {
-  const newCard = createCard(item.name, item.link, item.likes); // Создаем карточку
+  const newCard = createCard(item); // Создаем карточку
   elementsContainer.appendChild(newCard); // Вставляем карточку в контейнер
 });
 }
@@ -118,7 +118,7 @@ function addItem(event) {
   
   saveItem(nameValue, urlValue)
   .then(res => {
-    const newCard = createCard(res.name, res.link, res._id); // Создаем новую карточку
+    const newCard = createCard(res); // Создаем новую карточку
     
     elementsContainer.insertBefore(newCard, elementsContainer.firstChild);
      closePopup(newPlacePopup); // Закрываем всплывающее окно
@@ -204,7 +204,7 @@ function fetchProfile() {
     
   }
 
-fetchProfile()
+
 
 
 import { initialCards } from "./components/card.js"
@@ -321,17 +321,26 @@ function saveAvatarButtonClick(evt) {
 saveAvatar.addEventListener("click", saveAvatarButtonClick);
 
 
-
-
 // 7. Отображение количества лайков карточки
 
+
+//вводим переменную для айди вместо хардкод значения ранее, далее передаем пер в запросе к серверу
+export let myUserId = '';
+
+//Промис получает сразу все необходимые нам данные при загрузке страницы
 Promise.all([fetchProfile(), getInitialCards()])
   .then(([data, cards]) => {
-    userId = data._id;
-    fetchProfile(data);
-    addCards(cards, userId);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
+    profileName.textContent = data.name;
+    profileSpeciality.textContent = data.about;
+    profileAvatar.src = data.avatar;
+    myUserId = data._id;
+    cards.forEach((card) => {
+      const newCard = createCard(card);
+      elementsContainer.append(newCard);
+       
+    })
+  })
+  .catch(err => {
+    console.log(err)
+  });

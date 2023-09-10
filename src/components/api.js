@@ -28,6 +28,7 @@ export function getInitialCards() {
         )
         
       .then(data => {
+        console.log(data)
         const newData = data.map(card => ({
           name: card.name,
           link: card.link
@@ -54,8 +55,10 @@ export function getInitialCards() {
     
 }
 
+// 10. Удаление карточекdeleteItem(64fdb7f62eb4790a5a49f29c)
+
 export function deleteItem(id) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
+    return fetch(`${config.baseUrl}/cards/${id}`, {
         headers: config.headers,
         'Content-Type': 'application/json',
         method: "DELETE",
@@ -64,6 +67,14 @@ export function deleteItem(id) {
     .then(checkResponse);
 }
 
+
+// 8. УДАЛЕНИЕ КАРТОЧКИ ЧЕРЕЗ СЕРВЕР
+export const deleteCardServer = (idCard) => {
+  return request(`${config.url}/cards/${idCard}`, {
+      method: "DELETE",
+      headers: config.headers
+  });
+}
 
 
 // 10. Обновление аватара пользователя
@@ -85,17 +96,18 @@ export function changeAvatar(avatar) {
 
 //7
 
-//добавление инфо о лайке на сервер
-export function addLike(id) {
-  return request(`${config.baseUrl}/cards/likes/${id}`, {
-    method: 'PUT',
-    headers: config.headers,
-  })
+//9. ДОБАВЛЕНИЕ ЛАЙКОВ НА СЕРВЕР
+export const getLike = (idCard) => {
+  return request(`${config.url}/cards/likes/${idCard}`, {
+    method: "PUT",
+    headers: config.headers
+  });
 }
 
-export function removeLike(id) {
-  return request(`${config.baseUrl}/cards/likes/${id}`, {
-    method: 'DELETE',
-    headers: config.headers,
-  })
+//УДАЛЕНИЕ ЛАЙКА С СЕРВЕРА
+export const deleteLike = (idCard) => {
+  return request(`${config.url}/cards/likes/${idCard}`, {
+    method: "DELETE",
+    headers: config.headers
+  });
 }
