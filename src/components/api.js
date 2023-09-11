@@ -8,103 +8,107 @@ const config = {
   },
 };
 
-function checkResponse(res) {
+export function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
-
   // если ошибка, отклоняем промис
   return Promise.reject(`Ошибка: ${res.status}`);
+}
+
+function request(url, options) {
+  // принимает два аргумента: урл и объект опций, как и `fetch`
+  return fetch(url, options).then(checkResponse);
 }
 
 // 3. Загрузка информации о пользователе с сервера
 
 export function fetchProfile() {
-  return fetch("https://mesto.nomoreparties.co/v1/wbf-cohort-12/users/me", {
-    headers: {
-      authorization: "a5b874b6-9996-4636-90dc-7aca01fd7b4e",
-    },
-  })
-    .then((res) => res.json())
-    .catch((error) => {
-      console.error("Ошибка при обновлении профиля:", error);
-    });
+  const url = `${config.baseUrl}/users/me`;
+  const options = {
+    headers: config.headers,
+  };
+  return request(url, options);
 }
 
 // 4. Загрузка карточек с сервера
 
 export function getInitialCards() {
-  return fetch(`${config.baseUrl}/cards`, config).then(checkResponse);
+  const url = `${config.baseUrl}/cards`;
+  const options = config;
+  return request(url, options);
 }
 
 // 5. Редактирование профиля
 
 export function patchUserProfile(name, about) {
-  return fetch("https://mesto.nomoreparties.co/v1/wbf-cohort-12/users/me", {
+  const url = `${config.baseUrl}/users/me`;
+  const options = {
     method: "PATCH",
-    headers: {
-      authorization: "a5b874b6-9996-4636-90dc-7aca01fd7b4e",
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: name,
       about: about,
     }),
-  }).then((res) => {
-    if (!res.ok) {
-      throw new Error("Ошибка при обновлении профиля");
-    }
-    return res.json();
-  });
+  };
+  return request(url, options);
 }
 
 // 6. Добавление новой карточки
 
 export function saveItem(name, link) {
-  return fetch(`${config.baseUrl}/cards`, {
+  const url = `${config.baseUrl}/cards`;
+  const options = {
     headers: config.headers,
-    "Content-Type": "application/json",
     method: "POST",
     body: JSON.stringify({
       name: name,
       link: link,
     }),
-  }).then(checkResponse);
+  };
+  return request(url, options);
 }
 
 // 8. Удаление карточки
 export const deleteItem = (idCard) => {
-  return fetch(`${config.baseUrl}/cards/${idCard}`, {
+  const url = `${config.baseUrl}/cards/${idCard}`;
+  const options = {
     method: "DELETE",
     headers: config.headers,
-  }).then(checkResponse);
+  };
+  return request(url, options);
 };
 
 // 9. Постановка лайка
 export const getLike = (idCard) => {
-  return fetch(`${config.baseUrl}/cards/likes/${idCard}`, {
+  const url = `${config.baseUrl}/cards/likes/${idCard}`;
+  const options = {
     method: "PUT",
     headers: config.headers,
-  }).then(checkResponse);
+  };
+  return request(url, options);
 };
 
 // 9. Cнятие лайка
 export const deleteLike = (idCard) => {
-  return fetch(`${config.baseUrl}/cards/likes/${idCard}`, {
+  const url = `${config.baseUrl}/cards/likes/${idCard}`;
+  const options = {
     method: "DELETE",
     headers: config.headers,
-  }).then(checkResponse);
+  };
+  return request(url, options);
 };
 
 // 10. Обновление аватара пользователя
 
 export function changeAvatar(avatar) {
-  return fetch(`${config.baseUrl}/users/me/avatar`, {
+  const url = `${config.baseUrl}/users/me/avatar`;
+  const options = {
     headers: config.headers,
-    "Content-Type": "application/json",
     method: "PATCH",
     body: JSON.stringify({
       avatar: avatar,
     }),
-  }).then(checkResponse);
+  };
+  return request(url, options);
 }

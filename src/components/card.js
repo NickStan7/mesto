@@ -1,6 +1,5 @@
-import { openImagePopup } from "../index";
-import { saveItem, getLike, deleteLike, deleteItem } from "./api.js";
-import { myUserId } from "../index";
+import { myUserId, openImagePopup } from "../index.js";
+import { getLike, deleteLike, deleteItem } from "./api.js";
 
 // 7. Отображение количества лайков карточки(сервер)
 // 8. Удаление карточки(сервер)
@@ -49,7 +48,10 @@ export function createCard(item) {
   elementsImage.alt = item.name;
   likeCounter.textContent = item.likes.length;
 
+  // elementsImage.addEventListener('click', () => openImagePopup(item)); - пишет ошибку
+
   elementsImage.addEventListener("click", openImagePopup);
+
   // проверяем айди карточки и блокируем удаление чужой карточки
 
   if (!(item.owner._id === myUserId)) {

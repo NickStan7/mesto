@@ -1,5 +1,3 @@
-import { blockButton } from "./validation";
-
 // Функция для закрытия попапа на Escape
 function closePopupEscape(e) {
   if (e.key === "Escape") {
@@ -9,15 +7,13 @@ function closePopupEscape(e) {
 }
 
 function closePopupOverlay(e) {
-  const popup = document.querySelector(".popup_opened");
-  if (e.target === popup) {
-    closePopup(popup);
+  if (e.target.classList.contains('popup_opened')) {
+    closePopup(e.target);
   }
-}
+  }
 
 // Функция для открытия попапа
 function openPopup(popup) {
-  blockButton();
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupEscape);
   document.addEventListener("click", closePopupOverlay);

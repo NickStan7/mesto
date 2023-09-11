@@ -11,78 +11,15 @@ import {
   patchUserProfile,
 } from "./components/api.js";
 
-// Находим форму в DOM
+// Находим формы в DOM
 const formName = document.forms.name;
+const formPlace = document.forms.place;
+const formAvatar = document.forms.avatar;
 // Получаем элементы, куда должны быть вставлены значения полей
 const profileName = document.querySelector(".profile__name");
 const profileSpeciality = document.querySelector(".profile__speciality");
 
-//111111 Открытие и закрытие модального окна
-
-// Получаем кнопку "Редактировать профиль"
-const openButton = document.querySelector(".profile__edit-button");
-const profileAvatar = document.querySelector(".profile__avatar");
-const profilePopup = document.querySelector(".popup_profile");
-
-// Получаем кнопку закрытия попапа
-const popupCloseButtons = document.querySelectorAll(".popup__close");
-
-// Получаем инпуты
-const nameInput = formName.elements.username;
-const jobInput = formName.elements.speciality;
-
-function insertInput() {
-  // Получите значение из атрибута textContent элементов profile__name и profile__speciality
-  const nameValue = profileName.textContent;
-  const jobValue = profileSpeciality.textContent;
-  nameInput.focus();
-
-  // Вставьте новые значения в инпуты
-  nameInput.value = nameValue;
-  jobInput.value = jobValue;
-}
-
-function EditProfileButtonClick() {
-  openPopup(profilePopup);
-  insertInput();
-}
-
-popupCloseButtons.forEach((button) =>
-  button.addEventListener("click", (e) => {
-    const popup = e.target.closest(".popup");
-    closePopup(popup);
-  })
-);
-
-// Слушаем клик на кнопке "Редактировать профиль" и открываем попап
-openButton.addEventListener("click", EditProfileButtonClick);
-
-//111111(222222) Редактирование имени и информации о себе
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
-
-formName.addEventListener("submit", function (evt) {
-  // отменим стандартное поведение
-  evt.preventDefault();
-
-  // вызываем функцию
-  handleFormSubmit(evt);
-});
-
-//22222222222  Вставка Шесть карточек «из коробки»
-
-const elementsContainer = document.querySelector(".elements");
-
-// Добавление карточек из массива initialCards
-export function addCards() {
-  initialCards.forEach((item) => {
-    const newCard = createCard(item); // Создаем карточку
-    elementsContainer.appendChild(newCard); // Вставляем карточку в контейнер
-  });
-}
-
-//33333333333 Форма добавления карточки
+const saveButton = document.querySelector(".popup__save_new-place");
 
 // Получаем кнопку "добавить"
 const addButton = document.querySelector(".profile__add-button");
@@ -93,6 +30,81 @@ const newPlacePopup = document.querySelector(".popup_new-place");
 // Получаем инпуты
 const namePlace = document.querySelector("#new-place-name");
 const imgUrl = document.querySelector("#new-place-url");
+
+const elementsContainer = document.querySelector(".elements");
+
+// Получаем попап
+const popupImage = document.querySelector(".popup_type_image");
+
+// Получаем "subtitle"
+const popupSubtitle = document.querySelector(".popup__subtitle");
+
+// Находим элемент <img> внутри попапа
+const popupImageImg = popupImage.querySelector(".popup__image");
+
+const popupAvatar = document.querySelector(".popup_avatar");
+const editAvatar = document.querySelector(".profile__avatar-container");
+const saveAvatar = document.querySelector(".popup__save_avatar");
+const avatarValue = document.querySelector("#avatar-url");
+
+//111111 Открытие и закрытие модального окна
+
+// Получаем кнопку "Редактировать профиль"
+const openProfileButton = document.querySelector(".profile__edit-button");
+const profileAvatar = document.querySelector(".profile__avatar");
+const profilePopup = document.querySelector(".popup_profile");
+
+// Получаем кнопку закрытия попапа
+const popupCloseButtons = document.querySelectorAll(".popup__close");
+
+// Получаем инпуты
+const nameInput = formName.elements.username;
+const jobInput = formName.elements.speciality;
+
+function fillProfileInputs() {
+  // Получите значение из атрибута textContent элементов profile__name и profile__speciality
+  const nameValue = profileName.textContent;
+  const jobValue = profileSpeciality.textContent;
+  nameInput.focus();
+
+  // Вставьте новые значения в инпуты
+  nameInput.value = nameValue;
+  jobInput.value = jobValue;
+}
+
+function openProfilePopup() {
+  openPopup(profilePopup);
+  fillProfileInputs();
+}
+
+popupCloseButtons.forEach((button) =>
+  button.addEventListener("click", (e) => {
+    const popup = e.target.closest(".popup");
+    closePopup(popup);
+  })
+);
+
+// Слушаем клик на кнопке "Редактировать профиль" и открываем попап
+openProfileButton.addEventListener("click", openProfilePopup);
+
+//111111(222222) Редактирование имени и информации о себе
+
+// Обработчик «отправки» формы, хотя пока
+// она никуда отправляться не будет
+
+formName.addEventListener("submit", handleProfileFormSubmit);
+
+//22222222222  Вставка Шесть карточек «из коробки»
+
+// Добавление карточек из массива initialCards
+export function addCards() {
+  initialCards.forEach((item) => {
+    const newCard = createCard(item); // Создаем карточку
+    elementsContainer.appendChild(newCard); // Вставляем карточку в контейнер
+  });
+}
+
+//33333333333 Форма добавления карточки
 
 // Функция-обработчик клика для кнопки "Добавить место"
 function handleAddPlaceButtonClick() {
@@ -107,8 +119,8 @@ addButton.addEventListener("click", handleAddPlaceButtonClick);
 function addItem(event) {
   event.preventDefault(); // Предотвращаем перезагрузку страницы
 
-  const saveButton = document.querySelector(".popup__save_new-place");
-  saveButton.textContent = "Сохранение...";
+  const submitButton = event.submitter;
+  submitButton.textContent = "Сохранение...";
 
   const nameValue = namePlace.value; // Получаем значение из поля ввода имени
   const urlValue = imgUrl.value; // Получаем значение из поля ввода URL
@@ -122,8 +134,9 @@ function addItem(event) {
       elementsContainer.insertBefore(newCard, elementsContainer.firstChild);
       closePopup(newPlacePopup); // Закрываем всплывающее окно
 
-      namePlace.value = "";
-      imgUrl.value = "";
+     // Очистка формы
+     event.target.reset();
+
     })
     .then(() => {
       console.log("Место успешно обновлено.");
@@ -134,23 +147,15 @@ function addItem(event) {
     .finally(() => {
       // После получения ответа от сервера, верните исходный текст кнопки
       saveButton.textContent = "Добавить";
+     saveButton.disabled = true;
     });
 }
 
-const formPlace = document.forms.place;
+
 
 formPlace.addEventListener("submit", addItem);
 
 //777777777777
-
-// Получаем попап
-const popupImage = document.querySelector(".popup_type_image");
-
-// Получаем изображение "subtitle"
-const popupSubtitle = document.querySelector(".popup__subtitle");
-
-// Находим элемент <img> внутри попапа
-const popupImageImg = popupImage.querySelector(".popup__image");
 
 export function openImagePopup(event) {
   const clickedImage = event.target;
@@ -174,26 +179,19 @@ enableValidation(validationSettings);
 
 // 888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888 СПРИНТ
 
-// 4. Загрузка карточек(сервер)
-
-getInitialCards()
-  .then((res) => {
-    addCards();
-  })
-  .catch((error) => {
-    console.error("Ошибка при обновлении профиля:", error);
-  });
-
 //5. Редактирование профиля(сервер)
 
 // Функция для обработки сохранения профиля
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   const nameValue = nameInput.value; // Получаем новое имя из поля ввода
   const jobValue = jobInput.value; // Получаем новую информацию о себе из поля ввода
   const saveButton = formName.querySelector(".popup__save");
-  saveButton.textContent = "Сохранение...";
+
+  const submitButton = evt.submitter;
+  submitButton.textContent = "Сохранение...";
+
   patchUserProfile(nameValue, jobValue)
     .then(() => {
       console.log("Профиль успешно обновлен.");
@@ -213,14 +211,8 @@ function handleFormSubmit(evt) {
 
 // 10. Обновление аватара пользователя (сервер)
 
-const popupAvatar = document.querySelector(".popup_avatar");
-const editAvatar = document.querySelector(".profile__avatar-container");
-const saveAvatar = document.querySelector(".popup__save_avatar");
-const avatarValue = document.querySelector("#avatar-url");
-
 function editAvatarButtonClick() {
   openPopup(popupAvatar);
-  insertInput();
 }
 
 editAvatar.addEventListener("click", editAvatarButtonClick);
@@ -233,8 +225,10 @@ function saveAvatarButtonClick(evt) {
     .then(() => {
       console.log("Аватар успешно обновлен.");
       profileAvatar.src = newAvatarUrl; // Обновляем аватар на странице
-      const popup = evt.target.closest(".popup");
-      closePopup(popup);
+      closePopup(popupAvatar);
+           // Очистка формы
+           formAvatar.reset();
+
     })
     .catch((error) => {
       console.error("Ошибка при обновлении аватара:", error);
@@ -242,12 +236,13 @@ function saveAvatarButtonClick(evt) {
     .finally(() => {
       // После получения ответа от сервера, верните исходный текст кнопки
       saveAvatar.textContent = "Сохранить";
-      avatarValue.value = "";
+      saveAvatar.disabled = true;
     });
 }
 
-saveAvatar.addEventListener("click", saveAvatarButtonClick);
+formAvatar.addEventListener("submit", saveAvatarButtonClick);
 
+// 4. Загрузка карточек(сервер)
 // 7. Отображение количества лайков карточки(сервер)
 // 7. Отображение количества лайков карточки(сервер)
 // 8. Удаление карточки(сервер)
@@ -269,6 +264,6 @@ Promise.all([fetchProfile(), getInitialCards()])
       elementsContainer.append(newCard);
     });
   })
-  .catch((err) => {
-    console.log(err);
+  .catch((error) => {
+    console.error("Ошибка при обновлении профиля:", error);
   });
