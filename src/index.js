@@ -134,9 +134,8 @@ function addItem(event) {
       elementsContainer.insertBefore(newCard, elementsContainer.firstChild);
       closePopup(newPlacePopup); // Закрываем всплывающее окно
 
-     // Очистка формы
-     event.target.reset();
-
+      // Очистка формы
+      event.target.reset();
     })
     .then(() => {
       console.log("Место успешно обновлено.");
@@ -147,11 +146,9 @@ function addItem(event) {
     .finally(() => {
       // После получения ответа от сервера, верните исходный текст кнопки
       saveButton.textContent = "Добавить";
-     saveButton.disabled = true;
+      saveButton.disabled = true;
     });
 }
-
-
 
 formPlace.addEventListener("submit", addItem);
 
@@ -226,9 +223,8 @@ function saveAvatarButtonClick(evt) {
       console.log("Аватар успешно обновлен.");
       profileAvatar.src = newAvatarUrl; // Обновляем аватар на странице
       closePopup(popupAvatar);
-           // Очистка формы
-           formAvatar.reset();
-
+      // Очистка формы
+      formAvatar.reset();
     })
     .catch((error) => {
       console.error("Ошибка при обновлении аватара:", error);
