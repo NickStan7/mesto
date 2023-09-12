@@ -1,3 +1,5 @@
+import { popupImageImg, popupSubtitle, popupImage } from "../index.js";
+
 // Функция для закрытия попапа на Escape
 function closePopupEscape(e) {
   if (e.key === "Escape") {
@@ -27,3 +29,15 @@ function closePopup(popup) {
 }
 
 export { openPopup, closePopup };
+
+
+export function openImagePopup(event) {
+  const clickedImage = event.target;
+  const imageUrl = clickedImage.src;
+  const imageAlt = clickedImage.alt;
+
+  popupImageImg.src = imageUrl;
+  popupImageImg.alt = `${imageAlt} вставлять`;
+  popupSubtitle.textContent = imageAlt;
+  openPopup(popupImage);
+}

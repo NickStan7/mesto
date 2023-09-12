@@ -40,7 +40,7 @@ function setEventListeners(form, settings) {
 
   form.addEventListener('reset', () => {
     disableButton(buttonSubmit);
-  });2
+  });
   const inputList = form.querySelectorAll(settings.inputSelector);
 
   inputList.forEach((input) => {

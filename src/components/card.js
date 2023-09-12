@@ -1,5 +1,6 @@
-import { myUserId, openImagePopup } from "../index.js";
+import { myUserId } from "../index.js";
 import { getLike, deleteLike, deleteItem } from "./api.js";
+import { openImagePopup } from "../components/modal.js";
 
 // 7. Отображение количества лайков карточки(сервер)
 // 8. Удаление карточки(сервер)

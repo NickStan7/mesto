@@ -19,8 +19,6 @@ const formAvatar = document.forms.avatar;
 const profileName = document.querySelector(".profile__name");
 const profileSpeciality = document.querySelector(".profile__speciality");
 
-const saveButton = document.querySelector(".popup__save_new-place");
-
 // Получаем кнопку "добавить"
 const addButton = document.querySelector(".profile__add-button");
 
@@ -34,13 +32,13 @@ const imgUrl = document.querySelector("#new-place-url");
 const elementsContainer = document.querySelector(".elements");
 
 // Получаем попап
-const popupImage = document.querySelector(".popup_type_image");
+export const popupImage = document.querySelector(".popup_type_image");
 
 // Получаем "subtitle"
-const popupSubtitle = document.querySelector(".popup__subtitle");
+export const popupSubtitle = document.querySelector(".popup__subtitle");
 
 // Находим элемент <img> внутри попапа
-const popupImageImg = popupImage.querySelector(".popup__image");
+export const popupImageImg = popupImage.querySelector(".popup__image");
 
 const popupAvatar = document.querySelector(".popup_avatar");
 const editAvatar = document.querySelector(".profile__avatar-container");
@@ -145,8 +143,7 @@ function addItem(event) {
     })
     .finally(() => {
       // После получения ответа от сервера, верните исходный текст кнопки
-      saveButton.textContent = "Добавить";
-      saveButton.disabled = true;
+      submitButton.textContent = "Добавить";
     });
 }
 
@@ -154,16 +151,6 @@ formPlace.addEventListener("submit", addItem);
 
 //777777777777
 
-export function openImagePopup(event) {
-  const clickedImage = event.target;
-  const imageUrl = clickedImage.src;
-  const imageAlt = clickedImage.alt;
-
-  popupImageImg.src = imageUrl;
-  popupImageImg.alt = `${imageAlt} вставлять`;
-  popupSubtitle.textContent = imageAlt;
-  openPopup(popupImage);
-}
 
 const validationSettings = {
   inputSelector: ".popup__field",
@@ -184,7 +171,6 @@ function handleProfileFormSubmit(evt) {
 
   const nameValue = nameInput.value; // Получаем новое имя из поля ввода
   const jobValue = jobInput.value; // Получаем новую информацию о себе из поля ввода
-  const saveButton = formName.querySelector(".popup__save");
 
   const submitButton = evt.submitter;
   submitButton.textContent = "Сохранение...";
@@ -202,7 +188,7 @@ function handleProfileFormSubmit(evt) {
     })
     .finally(() => {
       // После получения ответа от сервера, верните исходный текст кнопки
-      saveButton.textContent = "Сохранить";
+      submitButton.textContent = "Сохранить";
     });
 }
 
@@ -215,7 +201,9 @@ function editAvatarButtonClick() {
 editAvatar.addEventListener("click", editAvatarButtonClick);
 
 function saveAvatarButtonClick(evt) {
-  saveAvatar.textContent = "Сохранение...";
+  const submitButton = evt.submitter;
+  submitButton.textContent = "Сохранение...";
+
   evt.preventDefault();
   const newAvatarUrl = avatarValue.value; // Получаем новый URL аватара из поля ввода
   changeAvatar(newAvatarUrl) // Отправляем новый URL на сервер
@@ -231,8 +219,7 @@ function saveAvatarButtonClick(evt) {
     })
     .finally(() => {
       // После получения ответа от сервера, верните исходный текст кнопки
-      saveAvatar.textContent = "Сохранить";
-      saveAvatar.disabled = true;
+      submitButton.textContent = "Сохранить";
     });
 }
 
