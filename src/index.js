@@ -176,11 +176,11 @@ function handleProfileFormSubmit(evt) {
   submitButton.textContent = "Сохранение...";
 
   patchUserProfile(nameValue, jobValue)
-    .then(() => {
+    .then((res) => {      // добавил res
       console.log("Профиль успешно обновлен.");
       // Вставьте новые значения с помощью textContent
-      profileName.textContent = nameValue;
-      profileSpeciality.textContent = jobValue;
+      profileName.textContent = res.name;                // заменил nameValue на res.name
+      profileSpeciality.textContent = res.about;         // заменил jobValue на res.about
       closePopup(profilePopup);
     })
     .catch((error) => {

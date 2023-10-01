@@ -18,14 +18,14 @@ function closePopupOverlay(e) {
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupEscape);
-  document.addEventListener("click", closePopupOverlay);
+  popup.addEventListener("mousedown", closePopupOverlay);
 }
 
 // Функция для закрытия попапа
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupEscape);
-  document.removeEventListener("click", closePopupOverlay);
+  popup.removeEventListener("mousedown", closePopupOverlay); // mousedown добавид, слушатель не на документ а на попап, чтобы экономить ресурсы
 }
 
 export { openPopup, closePopup };
