@@ -1,0 +1,20 @@
+.popup__content_avatar {
+  position: fixed; /* Позиционирование фиксированное, чтобы оставаться на месте при прокрутке */
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+  padding: 0%;
+  min-width: 430px;
+  min-height: 272px;
+}
+
+
+@media screen and (max-width: 590px) {
+  .popup__content_avatar {
+    min-width: 100px;
+  min-height: 100px;
+    width: 282px;
+    height: 222px;
+  }
+}

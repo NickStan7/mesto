@@ -1,4 +1,4 @@
-import { blockButton } from "./validation";
+import { popupImageImg, popupSubtitle, popupImage } from "../index.js";
 
 // Функция для закрытия попапа на Escape
 function closePopupEscape(e) {
@@ -9,25 +9,35 @@ function closePopupEscape(e) {
 }
 
 function closePopupOverlay(e) {
-  const popup = document.querySelector(".popup_opened");
-  if (e.target === popup) {
-    closePopup(popup);
+  if (e.target.classList.contains('popup_opened')) {
+    closePopup(e.target);
   }
-}
+  }
 
 // Функция для открытия попапа
 function openPopup(popup) {
-  blockButton();
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupEscape);
-  document.addEventListener("click", closePopupOverlay);
+  popup.addEventListener("mousedown", closePopupOverlay);
 }
 
 // Функция для закрытия попапа
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closePopupEscape);
-  document.removeEventListener("click", closePopupOverlay);
+  popup.removeEventListener("mousedown", closePopupOverlay); // mousedown добавид, слушатель не на документ а на попап, чтобы экономить ресурсы
 }
 
 export { openPopup, closePopup };
+
+
+export function openImagePopup(event) {
+  const clickedImage = event.target;
+  const imageUrl = clickedImage.src;
+  const imageAlt = clickedImage.alt;
+
+  popupImageImg.src = imageUrl;
+  popupImageImg.alt = `${imageAlt} вставлять`;
+  popupSubtitle.textContent = imageAlt;
+  openPopup(popupImage);
+}

@@ -1,33 +1,70 @@
-import { openImagePopup } from "../index";
+import { myUserId } from "../index.js";
+import { getLike, deleteLike, deleteItem } from "./api.js";
+import { openImagePopup } from "../components/modal.js";
 
+// 7. Отображение количества лайков карточки(сервер)
+// 8. Удаление карточки(сервер)
+// 9. Постановка лайка(сервер)
+// 9. Cнятие лайка(сервер)
+
+export const initialCards = [];
+const template = document
+  .querySelector("#place-template")
+  .content.querySelector(".element");
 // Функция для создания карточки
-export function createCard(name, link) {
-  const cardTemplate = document.querySelector("#place-template").content;
-  const cardElement = cardTemplate.cloneNode(true);
+export function createCard(item) {
+  const cardElement = template.cloneNode(true);
+  const elementsImage = cardElement.querySelector(".element__image");
+  const elementsTitle = cardElement.querySelector(".element__heading");
+  const elementsLike = cardElement.querySelector(".element__button");
+  const elementsDelete = cardElement.querySelector(".element__trash-button");
+  const likeCounter = cardElement.querySelector(".element__counter");
 
-  cardElement.querySelector(".element__heading").textContent = name;
-  const imageElement = cardElement.querySelector(".element__image");
-  imageElement.src = link;
-  imageElement.alt = name;
+  elementsLike.addEventListener("click", () => {
+    if (elementsLike.classList.contains("element__button_theme_dark")) {
+      deleteLike(item._id)
+        .then((res) => {
+          likeCounter.textContent = res.likes.length;
+          elementsLike.classList.remove("element__button_theme_dark");
+        })
+        .catch((err) => console.log("Ошибка связана с лайком", err));
+    } else {
+      getLike(item._id)
+        .then((res) => {
+          likeCounter.textContent = res.likes.length;
+          elementsLike.classList.add("element__button_theme_dark");
+        })
+        .catch((err) => console.log("Ошибка связана с лайком", err));
+    }
+  });
 
-  const likeButton = cardElement.querySelector(".element__button");
-  likeButton.addEventListener("click", toggleLike);
+  elementsDelete.addEventListener("click", () => {
+    deleteItem(item._id)
+      .then(() => cardElement.remove())
+      .catch((err) => console.log(err));
+  });
 
-  const trashButton = cardElement.querySelector(".element__trash-button");
-  trashButton.addEventListener("click", removeCard);
-  imageElement.addEventListener("click", openImagePopup);
+  elementsTitle.textContent = item.name;
+  elementsImage.src = item.link;
+  elementsImage.alt = item.name;
+  likeCounter.textContent = item.likes.length;
 
-  return cardElement; // Возвращаем готовую карточку
-}
+  // elementsImage.addEventListener('click', () => openImagePopup(item)); - пишет ошибку
 
-// 5555555555  Обработчик для кнопки "Лайк"
-export function toggleLike(event) {
-  const likeButton = event.target;
-  likeButton.classList.toggle("element__button_theme_dark");
-}
+  elementsImage.addEventListener("click", openImagePopup);
 
-//6666666666 Обработчик для кнопки "Удалить"
-export function removeCard(event) {
-  const card = event.target.closest(".element");
-  card.remove();
+  // проверяем айди карточки и блокируем удаление чужой карточки
+
+  if (!(item.owner._id === myUserId)) {
+    elementsDelete.remove();
+  }
+
+  // меняем состояние иконки, если там есть мой айди
+  item.likes.forEach((like) => {
+    if (like._id === myUserId) {
+      elementsLike.classList.add("element__button_theme_dark");
+    }
+  });
+
+  return cardElement;
 }

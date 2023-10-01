@@ -37,6 +37,10 @@ function checkButton(form, buttonSubmit) {
 function setEventListeners(form, settings) {
   const buttonSubmit = form.querySelector(settings.buttonSelector);
   disableButton(buttonSubmit);
+
+  form.addEventListener('reset', () => {
+    disableButton(buttonSubmit);
+  });
   const inputList = form.querySelectorAll(settings.inputSelector);
 
   inputList.forEach((input) => {
@@ -54,10 +58,3 @@ export default function enableValidation(settings) {
   });
 }
 
-//Функция блокировки создания пустой карточки
-export function blockButton() {
-  const buttonSelector = document.querySelector(".popup__save_new-place");
-  if (buttonSelector) {
-    buttonSelector.disabled = true;
-  }
-}
